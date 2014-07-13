@@ -1,0 +1,41 @@
+import time
+starttime=time.time()
+
+from random import randint
+
+base=raw_input('Enter the characters or numbers to try:')
+wanted=raw_input('Enter the Combination of Letters or NUmbers you want to find:')
+found=0
+print "Starting time is"+str(starttime)
+
+while found<1:
+    store=open('passwordtry.txt','r+')
+    store.read()
+#initialise password try string
+    passtry=''
+    
+    #makes sure seven cahracters in passtry
+    while len(passtry)<len(base):
+        #pulls random number
+        numpulled=base[randint(0,6)]
+        #checks if number already in passtry
+        if numpulled not in passtry:
+            passtry+=numpulled
+    if passtry not in store:
+        print passtry
+    #writes to text file all paswords
+        store.write(passtry+"\n")
+        store.close()
+    if passtry==wanted:
+        found=1
+        end=time.time()-starttime
+        print '%s'%(time.time()-starttime)
+
+        store=open('passwordtry.txt','r+')
+        endstate='Password Found in'+str(end)+'seconds'
+        store.write(endstate)
+        
+        store.close()
+        
+        
+
